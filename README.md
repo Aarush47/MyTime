@@ -1,53 +1,109 @@
-# Clock App - Flutter
+# MyClock - Android Clock App
 
-A modern clock application with flip-style animations, featuring Clock, Timer, Alarm, and Calendar tabs.
+A feature-rich Android clock application built with Kotlin that includes multiple time-tracking features in a sleek, fullscreen landscape interface.
+
+## 📱 Download APK
+
+**[⬇️ Download MyClock.apk](https://github.com/Aarush47/MyTime/raw/main/MyClock.apk)** (6.6 MB)
+
+Click the link above to download and install the app directly on your Android device.
 
 ## Features
 
-- 🕐 **Flip Clock** - Beautiful animated flip digits with 12-hour AM/PM format
-- ⏱️ **Timer** - Quick presets and circular progress indicator
-- ⏰ **Alarm** - Manage multiple alarms
-- 📅 **Calendar** - View today's events
-- 🎨 **Dark Minimal UI** - Clean interface with Open Sans font
+### 🕐 Clock
+- Real-time flip-style digital clock display
+- Syncs with device time automatically
+- Shows hours, minutes, and seconds with AM/PM indicator
 
-## To Run This Flutter App
+### ⏱️ Stopwatch
+- Analog stopwatch display with 60-tick precision
+- Lap time tracking with detailed records
+- Clean horizontal layout:
+  - Left side: Analog stopwatch with control buttons
+  - Right side: Lap records with lap time and total time
+- Visual design with orange animated hand
+- Start/Stop and Lap functionality
 
-### Option 1: Android Studio
-1. Open Android Studio
-2. Open this folder: `/Users/aarush/Downloads/MyClock`
-3. Wait for Gradle sync and Flutter dependencies to download
-4. Click Run (▶️) button
-5. Select your device/emulator
+### ⏰ Alarm
+- Set multiple alarms with custom labels
+- Repeat alarms with day selection (weekdays/specific days)
+- Alarm notifications with sound and vibration
+- Haptic feedback on interactions
+- Delete confirmation dialogs
+- Toggle alarms on/off easily
 
-### Option 2: VS Code
-1. Open this folder in VS Code
-2. Install Flutter extension
-3. Open Terminal and run: `flutter pub get`
-4. Press F5 or click Run → Start Debugging
-5. Select your device
+### 📅 Calendar
+- Monthly calendar view
+- Highlights current day
+- Navigate between months
 
-### Option 3: Command Line (if Flutter is installed)
+## Technical Details
+
+### Built With
+- **Language**: Kotlin
+- **Min SDK**: 24 (Android 7.0)
+- **Target SDK**: 34 (Android 14)
+- **Build System**: Gradle with Kotlin DSL
+
+### Key Features
+- Fullscreen landscape mode for immersive experience
+- Custom Canvas drawing for analog stopwatch
+- AlarmManager integration for precise alarm triggering
+- Notification system with custom channels
+- Haptic feedback throughout the app
+- Material Design components
+- Fragment-based architecture with ViewPager2
+
+### Permissions
+- `VIBRATE` - For haptic feedback and alarm vibration
+- `POST_NOTIFICATIONS` - For alarm notifications
+- `SCHEDULE_EXACT_ALARM` - For precise alarm scheduling
+- `WAKE_LOCK` - To wake device for alarms
+- `FOREGROUND_SERVICE` - For timer service
+
+## Installation
+
+### Option 1: Direct APK Install (Recommended)
+1. Download **[MyClock.apk](https://github.com/Aarush47/MyTime/raw/main/MyClock.apk)** on your Android device
+2. Enable "Install from Unknown Sources" in your device settings
+3. Open the downloaded APK file
+4. Follow the installation prompts
+5. Grant necessary permissions when prompted
+
+### Option 2: Build from Source
+1. Clone the repository:
 ```bash
-cd /Users/aarush/Downloads/MyClock
-flutter pub get
-flutter run
+git clone https://github.com/Aarush47/MyTime.git
+cd MyTime
 ```
 
-## Important Notes
+2. Open the project in Android Studio
 
-⚠️ This is a **Flutter app** (not the old Android Kotlin app). 
+3. Build and run:
+```bash
+./gradlew assembleDebug
+./gradlew installDebug
+```
 
-The app uses:
-- Flutter SDK
-- Riverpod for state management  
-- Google Fonts (Open Sans)
-- Flip clock animations
+## APK Location
 
-## UI Preview
+Pre-built APK is available in two locations:
+- **Root directory**: `MyClock.apk` (easy access)
+- **Build output**: `app/build/outputs/apk/debug/app-debug.apk`
 
-- **Clock Tab**: Large flip-style digits with AM/PM indicator
-- **Timer Tab**: Circular progress with quick presets
-- **Alarm Tab**: List of alarms with toggle switches
-- **Calendar Tab**: Today's events in clean cards
+## App Interface
 
-All tabs use a dark (#0a0a0a) background with white text.
+The app features a **horizontal landscape layout** optimized for immersive viewing:
+- Fullscreen display with swipe-to-reveal system bars
+- Dark theme throughout for comfortable viewing
+- Split-screen stopwatch design (stopwatch on left, lap records on right)
+- Intuitive navigation with bottom tabs
+- Clean, modern Material Design UI
+
+## License
+
+This project is available for personal and educational use.
+
+## Author
+
+Built with ❤️ using Android Studio and Kotlin
