@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#0a0a0a"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FRIDAY, FEBRUARY 22"
+        android:textColor="#808080"
+        android:textSize="13sp"
+        android:letterSpacing="0.1"
+        android:layout_marginBottom="40dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!-- Hour Digits -->
+        <TextView
+            android:id="@+id/hour1"
+            style="@style/FlipDigit"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/hour2"
+            style="@style/FlipDigit"
+            android:text="0"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Colon -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginHorizontal="8dp">
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/colon_dot" />
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/colon_dot" />
+        </LinearLayout>
+
+        <!-- Minute Digits -->
+        <TextView
+            android:id="@+id/minute1"
+            style="@style/FlipDigit"
+            android:layout_marginStart="8dp"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/minute2"
+            style="@style/FlipDigit"
+            android:text="0" />
+
+    </LinearLayout>
+
+    <!-- Seconds and AM/PM -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/second1"
+            style="@style/SecondDigit"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/second2"
+            style="@style/SecondDigit"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/amPm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AM"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-light"
+            android:letterSpacing="0.1"
+            android:layout_marginStart="16dp"
+            android:padding="8dp"
+            android:background="@drawable/am_pm_background" />
+
+    </LinearLayout>
+
+</LinearLayout>
