@@ -1,182 +1,156 @@
 package com.example.myclock
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
-import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 class TimerFragment : Fragment() {
     
-    private lateinit var stopwatchView: StopwatchView
-    private lateinit var timeDisplay: TextView
-    private lateinit var buttonStartStop: Button
-    private lateinit var buttonLap: Button
-    private lateinit var lapTimesRecycler: RecyclerView
+    private lateinit var timerDisplay: TextView
+    private lateinit var timerLabel: TextView
+    private lateinit var preset1Min: Button
+    private lateinit var preset5Min: Button
+    private lateinit var preset10Min: Button
+    private lateinit var preset15Min: Button
+    private lateinit var preset30Min: Button
+    private lateinit var preset1Hour: Button
+    private lateinit var timerStartBtn: Button
+    private lateinit var timerResetBtn: Button
     
     private val handler = Handler(Looper.getMainLooper())
-    private var startTime = 0L
-    private var elapsedTime = 0L
+    private var countDownTimer: CountDownTimer? = null
+    private var timeRemaining: Long = 0L
+    private var timerDuration: Long = 0L
     private var isRunning = false
-    private val lapTimes = mutableListOf<LapTime>()
-    private lateinit var lapAdapter: LapAdapter
-    
-    private val updateRunnable = object : Runnable {
-        override fun run() {
-            if (isRunning) {
-                elapsedTime = SystemClock.elapsedRealtime() - startTime
-                updateDisplay()
-                handler.postDelayed(this, 10) // Update every 10ms for smooth animation
-            }
-        }
-    }
+    private val presets = listOf(
+        1L * 60 * 1000,      // 1 min
+        5L * 60 * 1000,      // 5 min
+        10L * 60 * 1000,     // 10 min
+        15L * 60 * 1000,     // 15 min
+        30L * 60 * 1000,     // 30 min
+        60L * 60 * 1000      // 1 hour
+    )
     
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_stopwatch, container, false)
+        return inflater.inflate(R.layout.fragment_timer, container, false)
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        stopwatchView = view.findViewById(R.id.stopwatchView)
-        timeDisplay = view.findViewById(R.id.timeDisplay)
-        buttonStartStop = view.findViewById(R.id.buttonStartStop)
-        buttonLap = view.findViewById(R.id.buttonLap)
-        lapTimesRecycler = view.findViewById(R.id.lapTimesRecycler)
+        timerDisplay = view.findViewById(R.id.timerDisplay)
+        timerLabel = view.findViewById(R.id.timerLabel)
+        preset1Min = view.findViewById(R.id.preset1min)
+        preset5Min = view.findViewById(R.id.preset5min)
+        preset10Min = view.findViewById(R.id.preset10min)
+        preset15Min = view.findViewById(R.id.preset15min)
+        preset30Min = view.findViewById(R.id.preset30min)
+        preset1Hour = view.findViewById(R.id.preset1hour)
+        timerStartBtn = view.findViewById(R.id.timerStartBtn)
+        timerResetBtn = view.findViewById(R.id.timerResetBtn)
         
-        setupRecyclerView()
+        // Apply Coolvetica font to timer display
+        timerDisplay.typeface = FontUtils.getCoolveticaFont(requireContext())
         
-        buttonStartStop.setOnClickListener {
+        setupPresetButtons()
+        
+        timerStartBtn.setOnClickListener {
             if (isRunning) {
-                stop()
-            } else {
-                start()
+                pauseTimer()
+                timerStartBtn.text = "Start"
+            } else if (timeRemaining > 0) {
+                startTimer()
+                timerStartBtn.text = "Pause"
             }
         }
         
-        buttonLap.setOnClickListener {
-            if (isRunning) {
-                addLap()
-            } else if (elapsedTime > 0) {
-                reset()
-            }
+        timerResetBtn.setOnClickListener {
+            resetTimer()
         }
-    }
-    
-    private fun setupRecyclerView() {
-        lapAdapter = LapAdapter(lapTimes)
-        lapTimesRecycler.layoutManager = LinearLayoutManager(context)
-        lapTimesRecycler.adapter = lapAdapter
-        lapTimesRecycler.visibility = View.GONE // Hide initially until laps are added
-    }
-    
-    private fun start() {
-        startTime = SystemClock.elapsedRealtime() - elapsedTime
-        isRunning = true
-        buttonStartStop.text = "Stop"
-        buttonStartStop.setBackgroundResource(R.drawable.circular_button_red)
-        buttonLap.text = "Lap"
-        buttonLap.isEnabled = true
-        handler.post(updateRunnable)
-    }
-    
-    private fun stop() {
-        isRunning = false
-        buttonStartStop.text = "Start"
-        buttonStartStop.setBackgroundResource(R.drawable.circular_button_green)
-        buttonLap.text = "Reset"
-        handler.removeCallbacks(updateRunnable)
-    }
-    
-    private fun reset() {
-        elapsedTime = 0L
-        lapTimes.clear()
-        lapAdapter.notifyDataSetChanged()
-        lapTimesRecycler.visibility = View.GONE
-        buttonLap.isEnabled = false
+        
         updateDisplay()
     }
     
-    private fun addLap() {
-        val currentTotal = elapsedTime
-        val lapTime = if (lapTimes.isEmpty()) {
-            currentTotal
-        } else {
-            currentTotal - lapTimes.last().totalTime
+    private fun setupPresetButtons() {
+        val buttons = listOf(preset1Min, preset5Min, preset10Min, preset15Min, preset30Min, preset1Hour)
+        buttons.forEachIndexed { index, button ->
+            button.setOnClickListener {
+                if (!isRunning) {
+                    timeRemaining = presets[index]
+                    timerDuration = timeRemaining
+                    updateDisplay()
+                    timerStartBtn.isEnabled = true
+                }
+            }
         }
+    }
+    
+    private fun startTimer() {
+        if (isRunning || timeRemaining <= 0) return
         
-        lapTimes.add(0, LapTime(lapTimes.size + 1, lapTime, currentTotal))
-        lapAdapter.notifyItemInserted(0)
-        lapTimesRecycler.visibility = View.VISIBLE
-        lapTimesRecycler.scrollToPosition(0)
+        isRunning = true
+        timerStartBtn.isEnabled = true
+        timerResetBtn.isEnabled = true
+        
+        countDownTimer = object : CountDownTimer(timeRemaining, 100) {
+            override fun onTick(millisUntilFinished: Long) {
+                timeRemaining = millisUntilFinished
+                updateDisplay()
+            }
+            
+            override fun onFinish() {
+                timeRemaining = 0L
+                isRunning = false
+                timerDisplay.text = "00:00"
+                timerLabel.text = "COMPLETED"
+                timerStartBtn.text = "Start"
+            }
+        }
+        countDownTimer?.start()
+    }
+    
+    private fun pauseTimer() {
+        countDownTimer?.cancel()
+        isRunning = false
+    }
+    
+    private fun resetTimer() {
+        countDownTimer?.cancel()
+        isRunning = false
+        timeRemaining = 0L
+        timerDuration = 0L
+        timerLabel.text = "REMAINING"
+        timerStartBtn.text = "Start"
+        updateDisplay()
     }
     
     private fun updateDisplay() {
-        val minutes = (elapsedTime / 60000).toInt()
-        val seconds = ((elapsedTime % 60000) / 1000).toInt()
-        val centiseconds = ((elapsedTime % 1000) / 10).toInt()
-        
-        timeDisplay.text = String.format("%02d:%02d.%02d", minutes, seconds, centiseconds)
-        stopwatchView.setTime(elapsedTime)
+        val minutes = (timeRemaining / 1000) / 60
+        val seconds = (timeRemaining / 1000) % 60
+        timerDisplay.text = String.format("%02d:%02d", minutes, seconds)
     }
     
     override fun onPause() {
         super.onPause()
-        handler.removeCallbacks(updateRunnable)
-    }
-    
-    override fun onResume() {
-        super.onResume()
         if (isRunning) {
-            handler.post(updateRunnable)
+            pauseTimer()
+            timerStartBtn.text = "Start"
         }
     }
     
-    data class LapTime(
-        val lapNumber: Int,
-        val lapTime: Long,
-        val totalTime: Long
-    )
-    
-    class LapAdapter(private val laps: List<LapTime>) : RecyclerView.Adapter<LapAdapter.ViewHolder>() {
-        
-        class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val lapNumber: TextView = view.findViewById(R.id.lapNumber)
-            val lapTime: TextView = view.findViewById(R.id.lapTime)
-            val totalTime: TextView = view.findViewById(R.id.totalTime)
-        }
-        
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.lap_item, parent, false)
-            return ViewHolder(view)
-        }
-        
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val lap = laps[position]
-            holder.lapNumber.text = "Lap ${lap.lapNumber}"
-            holder.lapTime.text = formatTime(lap.lapTime)
-            holder.totalTime.text = formatTime(lap.totalTime)
-        }
-        
-        override fun getItemCount() = laps.size
-        
-        private fun formatTime(millis: Long): String {
-            val minutes = (millis / 60000).toInt()
-            val seconds = ((millis % 60000) / 1000).toInt()
-            val centiseconds = ((millis % 1000) / 10).toInt()
-            return String.format("%02d:%02d.%02d", minutes, seconds, centiseconds)
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        countDownTimer?.cancel()
     }
 }

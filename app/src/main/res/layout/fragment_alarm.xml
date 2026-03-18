@@ -14,18 +14,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ALARMS"
-            android:textColor="#808080"
-            android:textSize="13sp"
+            android:textColor="#4d4d4d"
+            android:textSize="@dimen/text_size_section_title"
             android:letterSpacing="0.15"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginTop="@dimen/padding_top"
+            android:layout_marginBottom="@dimen/spacing_medium" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/alarmRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
+            android:padding="@dimen/spacing_medium"
             android:clipToPadding="false" />
 
     </LinearLayout>
@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="24dp"
+        android:layout_margin="@dimen/padding_standard"
         android:src="@android:drawable/ic_input_add"
         app:tint="#000000"
         app:backgroundTint="#FFFFFF" />

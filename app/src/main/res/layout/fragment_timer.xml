@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0a0a0a">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_standard">
+
+        <!-- Circular Progress Ring Container -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center">
+
+            <View
+                android:id="@+id/timerProgressRing"
+                android:layout_width="210dp"
+                android:layout_height="210dp"
+                android:layout_gravity="center"
+                android:background="@drawable/timer_progress_ring" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/timerDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/text_size_timer_display"
+                    android:fontFamily="sans-serif-light"
+                    android:letterSpacing="-0.06"
+                    android:lineHeight="@dimen/line_height_main_time" />
+
+                <TextView
+                    android:id="@+id/timerLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="REMAINING"
+                    android:textColor="#4d4d4d"
+                    android:textSize="@dimen/text_size_section_title"
+                    android:letterSpacing="0.2"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <!-- Spacer -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_large" />
+
+        <!-- Preset Buttons Grid -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:rowCount="2"
+            android:layout_marginBottom="@dimen/spacing_xlarge">
+
+            <Button
+                android:id="@+id/preset1min"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/spacing_small"
+                android:text="1 min"
+                android:textColor="#b3b3b3"
+                android:textSize="@dimen/text_size_preset"
+                android:textAllCaps="false"
+                android:background="@drawable/preset_button_selector"
+                android:fontFamily="sans-serif"
+                android:stateListAnimator="@null"
+                android:elevation="0dp" />
+
+            <Button
+                android:id="@+id/preset5min"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/spacing_small"
+                android:text="5 min"
+                android:textColor="#b3b3b3"
+                android:textSize="@dimen/text_size_preset"
+                android:textAllCaps="false"
+                android:background="@drawable/preset_button_selector"
+                android:fontFamily="sans-serif"
+                android:stateListAnimator="@null"
+                android:elevation="0dp" />
+
+            <Button
+                android:id="@+id/preset10min"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/spacing_small"
+                android:text="10 min"
+                android:textColor="#b3b3b3"
+                android:textSize="@dimen/text_size_preset"
+                android:textAllCaps="false"
+                android:background="@drawable/preset_button_selector"
+                android:fontFamily="sans-serif"
+                android:stateListAnimator="@null"
+                android:elevation="0dp" />
+
+            <Button
+                android:id="@+id/preset15min"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/spacing_small"
+                android:text="15 min"
+                android:textColor="#b3b3b3"
+                android:textSize="@dimen/text_size_preset"
+                android:textAllCaps="false"
+                android:background="@drawable/preset_button_selector"
+                android:fontFamily="sans-serif"
+                android:stateListAnimator="@null"
+                android:elevation="0dp" />
+
+            <Button
+                android:id="@+id/preset30min"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/spacing_small"
+                android:text="30 min"
+                android:textColor="#b3b3b3"
+                android:textSize="@dimen/text_size_preset"
+                android:textAllCaps="false"
+                android:background="@drawable/preset_button_selector"
+                android:fontFamily="sans-serif"
+                android:stateListAnimator="@null"
+                android:elevation="0dp" />
+
+            <Button
+                android:id="@+id/preset1hour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/spacing_small"
+                android:text="1 hour"
+                android:textColor="#b3b3b3"
+                android:textSize="@dimen/text_size_preset"
+                android:textAllCaps="false"
+                android:background="@drawable/preset_button_selector"
+                android:fontFamily="sans-serif"
+                android:stateListAnimator="@null"
+                android:elevation="0dp" />
+
+        </GridLayout>
+
+        <!-- Control Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/spacing_medium">
+
+            <Button
+                android:id="@+id/timerStartBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/spacing_small"
+                android:text="Start"
+                android:textColor="#000000"
+                android:textSize="@dimen/text_size_button"
+                android:textAllCaps="false"
+                android:background="@drawable/control_button_primary"
+                android:fontFamily="sans-serif"
+                android:stateListAnimator="@null"
+                android:elevation="0dp"
+                android:padding="@dimen/spacing_medium" />
+
+            <Button
+                android:id="@+id/timerResetBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/spacing_small"
+                android:text="Reset"
+                android:textColor="#4d4d4d"
+                android:textSize="@dimen/text_size_button"
+                android:textAllCaps="false"
+                android:background="@drawable/control_button_secondary"
+                android:fontFamily="sans-serif"
+                android:stateListAnimator="@null"
+                android:elevation="0dp"
+                android:padding="@dimen/spacing_medium" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

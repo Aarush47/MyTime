@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Landscape optimized padding -->
+    <dimen name="padding_standard">24dp</dimen>
+    <dimen name="padding_top">16dp</dimen>
+    
+    <!-- Typography - slightly smaller for landscape -->
+    <dimen name="text_size_header">10sp</dimen>
+    <dimen name="text_size_main_time">72sp</dimen>
+    <dimen name="text_size_ampm">16sp</dimen>
+    <dimen name="text_size_date">12sp</dimen>
+    <dimen name="text_size_seconds">10sp</dimen>
+    <dimen name="text_size_section_title">9sp</dimen>
+    <dimen name="text_size_ambient_name">12sp</dimen>
+    <dimen name="text_size_ambient_status">10sp</dimen>
+    <dimen name="text_size_event_title">12sp</dimen>
+    <dimen name="text_size_event_time">10sp</dimen>
+    <dimen name="text_size_timer_display">32sp</dimen>
+    <dimen name="text_size_preset">12sp</dimen>
+    <dimen name="text_size_button">13sp</dimen>
+    
+    <!-- Spacing - more compact for landscape -->
+    <dimen name="spacing_small">6dp</dimen>
+    <dimen name="spacing_medium">10dp</dimen>
+    <dimen name="spacing_large">16dp</dimen>
+    <dimen name="spacing_xlarge">18dp</dimen>
+    <dimen name="spacing_xxlarge">20dp</dimen>
+    
+    <!-- Icon sizes - slightly smaller -->
+    <dimen name="icon_ambient_size">32dp</dimen>
+    <dimen name="icon_play_button_size">30dp</dimen>
+    <dimen name="icon_inner_size">14dp</dimen>
+    
+    <!-- Other -->
+    <dimen name="line_height_main_time">72sp</dimen>
+    <dimen name="progress_bar_height">1dp</dimen>
+</resources>

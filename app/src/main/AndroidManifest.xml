@@ -22,8 +22,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:screenOrientation="landscape"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -39,12 +38,6 @@
             android:name=".AlarmDismissReceiver"
             android:enabled="true"
             android:exported="false" />
-        
-        <service
-            android:name=".TimerService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="shortService" />
         
     </application>
 

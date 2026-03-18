@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">My Clock</string>
+    <string name="prev_symbol">\u003C</string>
+    <string name="next_symbol">\u003E</string>
 </resources>
